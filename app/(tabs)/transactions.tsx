@@ -22,14 +22,12 @@ export default function TransactionsScreen() {
   useEffect(() => {
     let result = [...transactions];
     
-    // Apply type filter
     if (selectedFilter === 'Income') {
       result = result.filter(t => t.type === 'income');
     } else if (selectedFilter === 'Expense') {
       result = result.filter(t => t.type === 'expense');
     }
     
-    // Apply search query
     if (searchQuery) {
       result = result.filter(t => 
         t.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -43,9 +41,7 @@ export default function TransactionsScreen() {
   const renderTransactionItem = ({ item }) => (
     <TouchableOpacity style={styles.transactionItem}>
       <View style={styles.transactionIconContainer}>
-        <Text style={styles.transactionIconText}>
-          {item.name.charAt(0)}
-        </Text>
+        <Text style={styles.transactionIconText}>{item.name.charAt(0)}</Text>
       </View>
       
       <View style={styles.transactionDetails}>
@@ -55,10 +51,7 @@ export default function TransactionsScreen() {
       
       <View style={styles.transactionAmountContainer}>
         <Text 
-          style={[
-            styles.transactionAmount, 
-            item.type === 'expense' ? styles.expenseText : styles.incomeText
-          ]}
+          style={[styles.transactionAmount, item.type === 'expense' ? styles.expenseText : styles.incomeText]}
         >
           {item.type === 'expense' ? '-' : '+'}₹{item.amount.toLocaleString()}
         </Text>
@@ -96,18 +89,10 @@ export default function TransactionsScreen() {
             {filterOptions.map((option) => (
               <TouchableOpacity
                 key={option}
-                style={[
-                  styles.filterOption,
-                  selectedFilter === option && styles.selectedFilterOption,
-                ]}
+                style={[styles.filterOption, selectedFilter === option && styles.selectedFilterOption]}
                 onPress={() => setSelectedFilter(option)}
               >
-                <Text
-                  style={[
-                    styles.filterOptionText,
-                    selectedFilter === option && styles.selectedFilterOptionText,
-                  ]}
-                >
+                <Text style={[styles.filterOptionText, selectedFilter === option && styles.selectedFilterOptionText]}>
                   {option}
                 </Text>
               </TouchableOpacity>
@@ -200,104 +185,9 @@ const styles = StyleSheet.create({
     color: '#4B5563',
     marginRight: 12,
   },
-  filterOptions: {
-    flexDirection: 'row',
-  },
-  filterOption: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-    backgroundColor: '#F3F4F6',
-    marginRight: 8,
-  },
-  selectedFilterOption: {
-    backgroundColor: '#6366F1',
-  },
-  filterOptionText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#4B5563',
-  },
-  selectedFilterOptionText: {
-    color: '#FFFFFF',
-  },
-  monthSelector: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-  },
-  monthSelectorText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#4B5563',
-    marginRight: 8,
-  },
   transactionsList: {
     paddingHorizontal: 20,
     paddingBottom: 20,
-  },
-  transactionItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    marginBottom: 12,
-    borderRadius: 16,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  transactionIconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: '#F3F4F6',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 16,
-  },
-  transactionIconText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#6366F1',
-  },
-  transactionDetails: {
-    flex: 1,
-  },
-  transactionName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1F2937',
-    marginBottom: 4,
-  },
-  transactionCategory: {
-    fontSize: 14,
-    color: '#6B7280',
-  },
-  transactionAmountContainer: {
-    alignItems: 'flex-end',
-  },
-  transactionAmount: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
-  expenseText: {
-    color: '#EF4444',
-  },
-  incomeText: {
-    color: '#10B981',
-  },
-  transactionDate: {
-    fontSize: 12,
-    color: '#9CA3AF',
   },
   emptyContainer: {
     alignItems: 'center',
